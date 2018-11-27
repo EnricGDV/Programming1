@@ -35,7 +35,7 @@ int explodeCandies(Candy candies[], int numCandies)
 		if (((candies[i].flags & (1 << 4)) == 0) && ((candies[i].flags & (1 << 3)) != 0))
 		{
 			candies[i].flags = candies[i].flags | (1 << 4);
-			candies[i].flags = candies[i].flags ^ (1 << 3);
+			candies[i].flags = candies[i].flags & ~(1 << 3);
 			totalScore += candies[i].points;
 		}
 	return totalScore;
@@ -44,7 +44,7 @@ int explodeCandies(Candy candies[], int numCandies)
 void resetCandy(Candy candies[], int candyIndex, int points)
 {
 	// TODO: Type your code here
-	candies[candyIndex].flags = candies[candyIndex].flags ^ (1 << 4);
+	candies[candyIndex].flags = candies[candyIndex].flags & ~(1 << 4);
 	candies[candyIndex].flags = candies[candyIndex].flags | (1 << 3);
 	candies[candyIndex].points = points;
 
