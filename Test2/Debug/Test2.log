@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\users\enricdv\desktop\test2 training - skeleton\main.cpp(119): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+c:\users\enricdv\desktop\test2 training - skeleton\main.cpp(127): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+c:\users\enricdv\desktop\test2 training - skeleton\main.cpp(135): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+c:\users\enricdv\desktop\test2 training - skeleton\main.cpp(143): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+  Test2.vcxproj -> C:\Users\enricdv\Desktop\Test2 Training - Skeleton\Debug\Test2.exe
