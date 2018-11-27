@@ -26,12 +26,30 @@ void exercise1()
 
 void exercise2()
 {
+	int bitmask5 = (1 << 7) | (1 << 4) | 1;
+	int bitmask6 = (1 << 6) | (1 << 4) | (1 << 2) | 1;
+	int bitmask7 = ~(1 << 7);
+	int bitmask8 = ~((1 << 7) | (1 << 3));
+}
 
+void exercise3()
+{
+	int var1 = 6;
+	int var2 = 54;
+	int var3 = 38;
+	int var4 = 98;
+
+	var1 = var1 | (1 | (1<<4));
+	var2 = var2 ^ ((1 << 3) | (1 << 7));
+	var3 = var3 & (1 << 5);
+	var4 = var4 ^~ ((1 << 2) | (1 << 6));
 }
 
 int main()
 {
 	exercise1();
+	exercise2();
+	exercise3();
 	system("pause");
 	return 0;
 }
