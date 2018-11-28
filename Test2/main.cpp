@@ -1,5 +1,5 @@
 /**********************************************************************
- *                        TYPE YOUR NAME HERE                         *
+ *                     Enric-Guillem Durán Vilar                      *
  **********************************************************************/
 
 #include <stdio.h>
@@ -9,12 +9,16 @@
 // Type definition for a byte
 typedef unsigned char byte;
 
+// Constants
+#define MAX_LIVES 3
+#define MAX_HEALTH 10
+
 // Struct for the player status
-struct Candy
+struct Player
 {
-	byte flags;   // bit 3 tells whether or not the piece will blast
-	              // bit 4 tells whether or not the piece is invalid
-	int points;   // value of the candy piece
+	byte flags;   // bit 5 tells whether or not the player is active
+	int health;   // remaining health
+	int numLives; // remaining number of lives
 };
 
 // Use this function if you want to check the bits of a number
@@ -27,28 +31,52 @@ void printBits(byte bits)
 	printf("\n");
 }
 
-int explodeCandies(Candy candies[], int numCandies)
+void applyDamageToPlayers(Player players[], int numPlayers, int damage)
 {
 	// TODO: Type your code here
-	int totalScore = 0;
-	for (int i = 0; i < numCandies; i++)
-		if (((candies[i].flags & (1 << 4)) == 0) && ((candies[i].flags & (1 << 3)) != 0))
+	for (int i = 0; i < numPlayers; i++)
+	{
+		if ((players[i].flags & (1 << 5)) != 0)
 		{
-			candies[i].flags = candies[i].flags | (1 << 4);
-			candies[i].flags = candies[i].flags & ~(1 << 3);
-			totalScore += candies[i].points;
+			players[i].health -= damage;
+
+			if (players[i].health <= 0)
+			{
+				players[i].numLives--;
+				if (players[i].numLives == 0)
+				{
+					players[i].health = 0;
+					players[i].flags &= ~(1 << 5);
+				}else {
+					players[i].health = MAX_HEALTH;
+				}
+			}
 		}
-	return totalScore;
+	}
 }
 
-void resetCandy(Candy candies[], int candyIndex, int points)
+void resurrectPlayers(Player players[], int numPlayers)
 {
 	// TODO: Type your code here
-	candies[candyIndex].flags = candies[candyIndex].flags & ~(1 << 4);
-	candies[candyIndex].flags = candies[candyIndex].flags | (1 << 3);
-	candies[candyIndex].points = points;
-
+	for (int i = 0; i < numPlayers; i++)
+	{
+		if ((players[i].flags & (1 << 5)) == 0)
+		{
+			players[i].flags |= (1 << 5);
+			players[i].numLives = MAX_LIVES;
+			players[i].health = MAX_HEALTH;
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
 
 void testExercise();
 
@@ -60,116 +88,112 @@ int main()
 	return 0;
 }
 
-
-int areCandiesEqual(Candy candies1[], Candy candies2[])
+int arePlayersEquals(Player players1[], Player players2[])
 {
 	for (int i = 0; i < 5; ++i)
 	{
-		if (candies1[i].flags != candies2[i].flags) return 0;
-		if (candies1[i].points != candies2[i].points) return 0;
+		if (players1[i].flags != players2[i].flags) return 0;
+		if (players1[i].health != players2[i].health) return 0;
+		if (players1[i].numLives != players2[i].numLives) return 0;
 	}
 	return 1;
 }
 
 void testExercise()
 {
-	const byte BlastFlag = 1 << 3;
-	const byte InvalidFlag = 1 << 4;
-
 	// Initial state of players
-	Candy candies1[5] = {
-	{ BlastFlag, 1 },
-	{ BlastFlag, 1 },
-	{ BlastFlag, 1 },
-	{ BlastFlag, 1 },
-	{ BlastFlag, 1 },
+	Player players1[5] = {
+	{32, 1,  1},
+	{32, 10, 1},
+	{32, 5,  2},
+	{32, 4,  3},
+	{32, 10, 3}
 	};
-	// After explodeCandies
-	Candy candies2[5] = {
-	{ InvalidFlag, 1 },
-	{ InvalidFlag, 1 },
-	{ InvalidFlag, 1 },
-	{ InvalidFlag, 1 },
-	{ InvalidFlag, 1 },
+	// After applyDamage 6
+	Player players2[5] = {
+	{0,  0,  0},
+	{32, 4,  1},
+	{32, 10, 1},
+	{32, 10, 2},
+	{32, 4,  3}
 	};
-	// After candyReset
-	Candy candies3[5] = {
-	{ InvalidFlag, 1 },
-	{ BlastFlag,   5 },
-	{ InvalidFlag, 1 },
-	{ BlastFlag,   5 },
-	{ InvalidFlag, 1 },
+	// After applyDamage 5
+	Player players3[5] = {
+	{0,  0,  0},
+	{0,  0,  0},
+	{32, 5,  1},
+	{32, 5,  2},
+	{32, 10, 2}
 	};
-	// After explodeCandies
-	Candy candies4[5] = {
-	{ InvalidFlag, 1 },
-	{ InvalidFlag, 5 },
-	{ InvalidFlag, 1 },
-	{ InvalidFlag, 5 },
-	{ InvalidFlag, 1 },
+	// After resurrect
+	Player players4[5] = {
+	{32, 10, 3},
+	{32, 10, 3},
+	{32, 5,  1},
+	{32, 5,  2},
+	{32, 10, 2}
 	};
-	// After explodeCandies
-	byte stubFlag = 1 << 7;
-	Candy candies5[5] = {
-	{ stubFlag | BlastFlag,   1 },
-	{ stubFlag | BlastFlag,   5 },
-	{ stubFlag | InvalidFlag, 1 },
-	{ stubFlag | BlastFlag,   7 },
-	{ stubFlag | InvalidFlag, 1 },
+	// After resurrect - with mixed flags
+	Player players4b[5] = {
+	{0xb8, 10, 3},
+	{0xb8, 10, 3},
+	{0xb8, 5,  1},
+	{0xb8, 5,  2},
+	{0xb8, 10, 2}
 	};
-	// After explodeCandies
-	Candy candies6[5] = {
-	{ stubFlag | InvalidFlag, 1 },
-	{ stubFlag | InvalidFlag, 5 },
-	{ stubFlag | InvalidFlag, 1 },
-	{ stubFlag | InvalidFlag, 7 },
-	{ stubFlag | InvalidFlag, 1 },
+	// After applyDamage 5
+	Player players5[5] = {
+	{0xb8, 5,  3},
+	{0xb8, 5,  3},
+	{0x98,  0,  0},
+	{0xb8, 10, 1},
+	{0xb8, 5, 2}
 	};
-	// After resetCandy
-	Candy candies7[5] = {
-	{ stubFlag | BlastFlag, 1 },
-	{ stubFlag | BlastFlag, 2 },
-	{ stubFlag | BlastFlag, 3 },
-	{ stubFlag | BlastFlag, 4 },
-	{ stubFlag | BlastFlag, 5 },
+	// After applyDamage 11
+	Player players6[5] = {
+	{0xb8, 10, 2},
+	{0xb8, 10, 2},
+	{0x98,  0,  0},
+	{0x98,  0,  0},
+	{0xb8, 10, 1}
 	};
-	// After explodeCandies
-	Candy candies8[5] = {
-	{ stubFlag | InvalidFlag, 1 },
-	{ stubFlag | InvalidFlag, 2 },
-	{ stubFlag | InvalidFlag, 3 },
-	{ stubFlag | InvalidFlag, 4 },
-	{ stubFlag | InvalidFlag, 5 },
+	// After resurrect
+	Player players7[5] = {
+	{0xb8, 10, 2},
+	{0xb8, 10, 2},
+	{0xb8, 10, 3},
+	{0xb8, 10, 3},
+	{0xb8, 10, 1}
+	};
+	// After applyDamage 10
+	Player players8[5] = {
+	{0xb8, 10, 1},
+	{0xb8, 10, 1},
+	{0xb8, 10, 2},
+	{0xb8, 10, 2},
+	{0x98,   0, 0}
 	};
 
-	int score = explodeCandies(candies1, 5);
-	bool equals = areCandiesEqual(candies1, candies2);
-	TEST("explodeCandies", score == 5 && equals == true);
+	applyDamageToPlayers(players1, 5, 6);
+	TEST("applyDamageToPlayers", arePlayersEquals(players1, players2));
 
-	resetCandy(candies2, 1, 5);
-	resetCandy(candies2, 3, 5);
-	equals = areCandiesEqual(candies2, candies3);
-	TEST("resetCandy", equals == true);
+	applyDamageToPlayers(players2, 5, 5);
+	TEST("applyDamageToPlayers", arePlayersEquals(players2, players3));
 
-	score = explodeCandies(candies3, 5);
-	equals = areCandiesEqual(candies3, candies4);
-	TEST("explodeCandies", score == 10 && equals == true);
+	resurrectPlayers(players3, 5);
+	TEST("resurrectPlayers", arePlayersEquals(players3, players4));
 
-	score = explodeCandies(candies5, 5);
-	equals = areCandiesEqual(candies5, candies6);
-	TEST("explodeCandies", score == 13 && equals == true);
+	applyDamageToPlayers(players4b, 5, 5);
+	TEST("applyDamageToPlayers", arePlayersEquals(players4b, players5));
 
-	resetCandy(candies6, 0, 1);
-	resetCandy(candies6, 1, 2);
-	resetCandy(candies6, 2, 3);
-	resetCandy(candies6, 3, 4);
-	resetCandy(candies6, 4, 5);
-	equals = areCandiesEqual(candies6, candies7);
-	TEST("resetCandy", equals == true);
+	applyDamageToPlayers(players5, 5, 11);
+	TEST("applyDamageToPlayers", arePlayersEquals(players5, players6));
 
-	score = explodeCandies(candies6, 5);
-	equals = areCandiesEqual(candies7, candies7);
-	TEST("explodeCandies", score == 15 && equals == true);
+	resurrectPlayers(players6, 5);
+	TEST("resurrectPlayers", arePlayersEquals(players6, players7));
+
+	applyDamageToPlayers(players7, 5, 10);
+	TEST("applyDamageToPlayers", arePlayersEquals(players7, players8));
 
 	PRINT_TEST_REPORT();
 }

@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\users\enricdv\documents\github\programming1\test2\main.cpp(119): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+c:\users\enricdv\documents\github\programming1\test2\main.cpp(127): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+c:\users\enricdv\documents\github\programming1\test2\main.cpp(135): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+c:\users\enricdv\documents\github\programming1\test2\main.cpp(143): warning C4838: conversion from 'int' to 'byte' requires a narrowing conversion
+  Test2.vcxproj -> C:\Users\enricdv\Documents\GitHub\Programming1\Test2\x64\Debug\Test2.exe
