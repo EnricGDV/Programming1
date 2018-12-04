@@ -1,0 +1,10 @@
+Hello, world of files 1!
+Hello, world of files 2!
+Hello, world of files 3!
+Hello, world of files 4!
+Hello, world of files 5!
+Hello, world of files 6!
+Hello, world of files 7!
+Hello, world of files 8!
+Hello, world of files 9!
+Hello, world of files 10!
