@@ -1,5 +1,11 @@
 ﻿  Maincpp.cpp
-c:\users\enricdv\source\repos\04_12_2018\04_12_2018\maincpp.cpp(86): warning C4477: 'scanf_s' : format string '%s' requires an argument of type 'unsigned int', but variadic argument 2 has type 'size_t'
-  c:\users\enricdv\source\repos\04_12_2018\04_12_2018\maincpp.cpp(86): note: this argument is used as a buffer size
-c:\users\enricdv\source\repos\04_12_2018\04_12_2018\maincpp.cpp(97): warning C4305: 'initializing': truncation from 'double' to 'float'
-  04_12_2018.vcxproj -> C:\Users\enricdv\source\repos\04_12_2018\x64\Debug\04_12_2018.exe
+c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(86): warning C4477: 'scanf_s' : format string '%s' requires an argument of type 'unsigned int', but variadic argument 2 has type 'size_t'
+  c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(86): note: this argument is used as a buffer size
+c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(97): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(122): warning C4474: 'fscanf' : too many arguments passed for format string
+  c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(122): note: placeholders and their parameters expect 4 variadic arguments, but 7 were provided
+c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(123): warning C4474: 'fscanf' : too many arguments passed for format string
+  c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(123): note: placeholders and their parameters expect 4 variadic arguments, but 7 were provided
+c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(124): warning C4474: 'fscanf' : too many arguments passed for format string
+  c:\users\enricdv\documents\github\programming1\04_12_2018\04_12_2018\maincpp.cpp(124): note: placeholders and their parameters expect 4 variadic arguments, but 7 were provided
+  04_12_2018.vcxproj -> C:\Users\enricdv\Documents\GitHub\Programming1\04_12_2018\x64\Debug\04_12_2018.exe

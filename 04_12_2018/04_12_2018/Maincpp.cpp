@@ -111,19 +111,25 @@ void exercise4(int enemynum, Enemy group [])
 	}
 }
 
-void exercise5(int enemynum, Enemy group [])
+void exercise5()
 {
-	Enemy buffer{};
+	Enemy buffer1{};
+	Enemy buffer2{};
+	Enemy buffer3{};
 	FILE *file = fopen("Enemies.txt", "r");
 	if (file != nullptr)
 	{
-		for (int i = 0; i < enemynum; i++)
-		{
-			fread(buffer, "%s %f %f %d", group[i].name, group[i].x, group[i].y, group[i].health);
-			group[i]
-		}
+		fscanf(file, "%s%f%f%d", buffer1.name, &buffer1.x, &buffer1.y, &buffer1.health, sizeof(buffer1.x), sizeof(buffer1.y), sizeof(buffer1.y));
+		fscanf(file, "%s%f%f%d", buffer2.name, &buffer2.x, &buffer2.y, &buffer2.health, sizeof(buffer2.x), sizeof(buffer2.y), sizeof(buffer2.y));
+		fscanf(file, "%s%f%f%d", buffer3.name, &buffer3.x, &buffer3.y, &buffer3.health, sizeof(buffer3.x), sizeof(buffer3.y), sizeof(buffer3.y));
+
 		fclose(file);
 	}
+}
+
+void exercise8()
+{
+
 }
 
 int main()
@@ -137,6 +143,9 @@ int main()
 
 	Enemy group[] = { Kim, Trixie, Katya };
 	exercise4(3, group);
+	exercise5();
+
+	exercise8();
 
 	system("pause");
 	return 0;
