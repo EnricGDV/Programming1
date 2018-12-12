@@ -1,0 +1,4 @@
+﻿  Main.cpp
+c:\users\enricdv\source\repos\12_12_2018\12_12_2018\main.cpp(8): warning C4477: 'printf' : format string '%i' requires an argument of type 'int', but variadic argument 1 has type 'int *'
+c:\users\enricdv\source\repos\12_12_2018\12_12_2018\main.cpp(10): warning C4477: 'printf' : format string '%i' requires an argument of type 'int', but variadic argument 1 has type 'int *'
+  12_12_2018.vcxproj -> c:\users\enricdv\source\repos\12_12_2018\Debug\12_12_2018.exe

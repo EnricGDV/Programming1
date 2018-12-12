@@ -129,7 +129,94 @@ void exercise5()
 
 void exercise8()
 {
+	char buffer[120];
+	FILE *file1 = fopen("Enemies.txt", "rb");
+	if (file1 != nullptr)
+	{
+		for (int i = 0; i <= 3; i++)
+		{
+			fgets(buffer, 32, file1);
+			if (i == 0) 
+			{
+				FILE *file2 = fopen("New.txt", "wb");
+				if (file2 != nullptr)
+				{
+					fprintf(file2, "%s", buffer);
+					fclose(file2);
+				}
+			}
+			else
+			{
+				FILE *file2 = fopen("New.txt", "ab");
+				if (file2 != nullptr)
+				{
+					fprintf(file2, "%s", buffer);
+					fclose(file2);
+				}
+			}
+		}
+		fclose(file1);
+	}
+}
 
+void exercise9()
+{
+	FILE *file = fopen("hello_world_of_files.txt", "rb");
+	if (file != nullptr)
+	{
+		
+	}
+}
+
+void exercise10()
+{
+	char buffer[320];
+	FILE *file1 = fopen("hello_world_of_files.txt", "r");
+	if (file1 != nullptr)
+	{
+		for (int i = 1; i <= 10; i++)
+		{
+			fgets(buffer, 32, file1);
+
+			if (i == 1)
+			{
+				FILE *file3 = fopen("Merge.txt", "w");
+				if (file3 != nullptr)
+				{
+					fprintf(file3, "%s", buffer);
+					fclose(file3);
+				}
+			}
+			else
+			{
+				FILE *file3 = fopen("Merge.txt", "a");
+				if (file3 != nullptr)
+				{
+					fprintf(file3, "%s", buffer);
+					fclose(file3);
+				}
+			}
+		}
+		fclose(file1);
+	}
+
+	FILE *file2 = fopen("Enemies.txt", "r");
+	if (file2 != nullptr)
+	{
+		for (int i = 0; i <= 3; i++)
+		{
+			fgets(buffer, 32, file2);
+
+			FILE *file3 = fopen("Merge.txt", "a");
+			if (file3 != nullptr)
+			{
+				fprintf(file3, "%s", buffer);
+			}
+
+			fclose(file3);
+		}
+		fclose(file2);
+	}
 }
 
 int main()
@@ -146,6 +233,7 @@ int main()
 	exercise5();
 
 	exercise8();
+	exercise10();
 
 	system("pause");
 	return 0;
